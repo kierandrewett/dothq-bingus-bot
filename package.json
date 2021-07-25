@@ -1,0 +1,22 @@
+{
+  "name": "@dothq/bingus",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/dot-community/bingus",
+  "author": "EnderDev <42723993+EnderDev@users.noreply.github.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "ts-node src/bot"
+  },
+  "dependencies": {
+    "discord-akairo": "^8.1.0",
+    "discord.js": "^12.5.3",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.4.2",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
+  }
+}
