@@ -20,7 +20,7 @@ export const responses = [
         emote: "😭"
     },
     {
-        regex: /(bingus|bigus|bignus|bi gus|bignsu|bignsu)/,
+        regex: /(bingus|bigus|bignus|bi gus|bignsu|bignsu|bingo|bongo|binghus)/,
         emote: "<:hibingus:813057022957322242>"
     },
     {
