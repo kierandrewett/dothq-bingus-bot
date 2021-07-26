@@ -31,7 +31,7 @@ export default class MessageListener extends Listener {
 
         let score = 0;
 
-        if(message.content.split(" ")[0].match(/(!|-|fire|!!!|!!|--|---|<|>|'|"|;|:|\[|\]|\$|#|@|%|\^|&|\*|\(|\))([a-zA-Z0-9]+)/)) {
+        if(message.content.split(" ")[0].match(/(!|-|fire|!!!|!!|--|---|<|>|'|"|;|:|\[|\]|\$|#|%|\^|&|\*|\(|\))([a-zA-Z0-9]+)/)) {
             console.log("contained common bot prefix, aborting...")
             return;
         }
