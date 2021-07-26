@@ -4,10 +4,12 @@ import {
     InhibitorHandler, 
     ListenerHandler 
 } from "discord-akairo";
+import { Structures } from "discord.js";
 
 import { config } from "dotenv";
-import { existsSync, readFileSync, writeFileSync } from "fs";
 import { resolve } from "node:path";
+
+import { Settings } from "./settings";
 
 config();
 
@@ -16,7 +18,7 @@ class BingusBot extends AkairoClient {
     public inhibitorHandler: InhibitorHandler;
     public listenerHandler: ListenerHandler
 
-    public settings: any;
+    public settings: Settings;
 
     constructor() {
         super({
@@ -46,38 +48,7 @@ class BingusBot extends AkairoClient {
             ]
         });
 
-        if(!existsSync(resolve(process.cwd(), "data.json"))) {
-            writeFileSync(
-                resolve(process.cwd(), "data.json"),
-                JSON.stringify({}, null, 2)
-            )
-
-            this.settings = {};
-        } else {
-           try {
-                let data = JSON.parse(readFileSync(
-                    resolve(process.cwd(), "data.json"), 
-                    "utf-8"
-                ));
-
-                this.settings = data;
-            } catch(e) {
-                throw new Error(e);
-            }
-        }
-
-        console.log("Loaded settings.");
-
-        setInterval(() => {
-            try {
-                writeFileSync(
-                    resolve(process.cwd(), "data.json"),
-                    JSON.stringify(this.settings, null, 2)
-                )
-            } catch(e) {
-                throw new Error(e);
-            }
-        }, 2000);
+        this.settings = new Settings();
 
         this.commandHandler = new CommandHandler(this, {
             directory: resolve(__dirname, "commands"),
