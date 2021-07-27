@@ -25,6 +25,10 @@ export default class EvalCommand extends Command {
 
     public exec(message: Message, args: any) {
         try {
+            if(args.code.includes("process") && args.code.includes("env")) {
+                return message.channel.send("🖕");
+            }
+
             const evaluated = eval(args.code);
             if(args["no-type"]) return;
 
