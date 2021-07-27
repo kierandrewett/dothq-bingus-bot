@@ -29,12 +29,12 @@ export default class LevelCommand extends Command {
             : Math.trunc(levelRequirement - settings.points)
 
         const embed = new MessageEmbed();
-            embed.setAuthor(message.member?.nickname, message.author.displayAvatarURL())
+            embed.setAuthor(message.member?.nickname || message.author.username, message.author.displayAvatarURL())
             embed.setColor(`${message.guild?.me?.displayHexColor}`)
             embed.setTitle(`${message.author.username}'s Level`)
             embed.setDescription(`**🆙 Level** ${settings.level}
 
-**🪙 Points** ${Math.trunc(settings.points)}
+**🪙 Bingus Points** ${Math.trunc(settings.points)}
 
 **➡ Points to Level ${settings.level+1}** ${pointsNeeded}`)
         message.reply(embed);
