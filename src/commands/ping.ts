@@ -17,7 +17,7 @@ export default class PingCommand extends Command {
     }
 
     public async exec(message: Message, args: any) {
-        const process = execa("ping", [args.url ? args.url : "discord.com", "-c", "3"]);
+        const process = execa("ping", [args.url ? args.url : "discord.com", "-c", "5"]);
 
         let dmsg: Message;
 
