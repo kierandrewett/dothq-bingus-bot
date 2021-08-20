@@ -18,9 +18,9 @@ export default class HelpCommand extends Command {
             .addField("🆙 Levels", "`level`")
             .addField("💡 Asana", "`todo, delete-todo`")
             .addField("👀 Administrative", "`eval`\n__\n__")
-            .setColor(`${message.guild?.me?.displayHexColor}`)
+            .setColor(`#${message.guild?.me?.displayHexColor.toString()}`)
             .setTimestamp(Date.now())
             .setFooter(`Requested by ${message.author.username}`, message.author.displayAvatarURL())
-        message.channel.send(embed)     
+        message.channel.send({ embeds: [embed] })     
     }
 }

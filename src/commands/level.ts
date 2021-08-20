@@ -30,13 +30,13 @@ export default class LevelCommand extends Command {
 
         const embed = new MessageEmbed();
             embed.setAuthor(message.member?.nickname || message.author.username, message.author.displayAvatarURL())
-            embed.setColor(`${message.guild?.me?.displayHexColor}`)
+            embed.setColor(`#${message.guild?.me?.displayHexColor.toString()}`)
             embed.setTitle(`${message.author.username}'s Level`)
             embed.setDescription(`**🆙 Level** ${settings.level}
 
 **🪙 Bingus Points** ${Math.trunc(settings.points)}
 
 **➡ Points to Level ${settings.level+1}** ${pointsNeeded}`)
-        message.reply(embed);
+        message.reply({ embeds: [embed] });
     }
 }

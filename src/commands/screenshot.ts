@@ -46,7 +46,7 @@ export default class ScreenshotCommand extends Command {
           const buff: any  = await page.screenshot();
 
           const img = new MessageAttachment(buff, "output.png");
-          message.channel.send(img)
+          message.channel.send({ files: [img] })
         } catch(e) {
           message.channel.send(e.message.substr(0, 1999));
         }

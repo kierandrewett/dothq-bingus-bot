@@ -5,9 +5,9 @@ import { responses } from "../shared/responses";
 
 export default class MessageListener extends Listener {
     constructor() {
-        super('message', {
+        super('messageCreate', {
             emitter: 'client',
-            event: 'message'
+            event: 'messageCreate'
         });
     }
 
@@ -80,7 +80,7 @@ export default class MessageListener extends Listener {
                 embed.setColor("#2f3136")
                 embed.setTitle(`🆙 You have leveled up to Level ${nearestNext}, ${message.member?.nickname}!`)
 
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
             console.log(`Level up: ${message.author.tag} -> level ${nearestNext}`)
         }
 

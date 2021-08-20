@@ -4,7 +4,6 @@ import {
     InhibitorHandler, 
     ListenerHandler 
 } from "discord-akairo";
-import { Structures } from "discord.js";
 
 import { config } from "dotenv";
 import { resolve } from "path";
@@ -29,10 +28,6 @@ class BingusBot extends AkairoClient {
                 roles: [],
                 repliedUser: false,
             },
-            messageCacheLifetime: 150,
-            messageSweepInterval: 60,
-            messageCacheMaxSize: 30,
-            restSweepInterval: 30,
             partials: ["REACTION", "MESSAGE", "CHANNEL", "GUILD_MEMBER", "USER"],
             intents: [
                 "GUILDS", 
@@ -55,7 +50,8 @@ class BingusBot extends AkairoClient {
             prefix: "-",
             allowMention: true,
             handleEdits: true,
-            commandUtil: true
+            commandUtil: true,
+            commandUtilSweepInterval: 0,
         });
 
         this.inhibitorHandler = new InhibitorHandler(this, {

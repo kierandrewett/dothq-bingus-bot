@@ -34,10 +34,14 @@ export default class EvalCommand extends Command {
 
             const type = inspect(evaluated);
 
-            return message.reply(type.replace(/(?:https?:\/\/)?discord(?:app)?\.(?:com\/invite|gg)\/[a-zA-Z0-9]+\/?/, ""), { code: "xl", replyTo: message })
+            return message.reply({ 
+                content: `\`\`\`xl${type.replace(/(?:https?:\/\/)?discord(?:app)?\.(?:com\/invite|gg)\/[a-zA-Z0-9]+\/?/, "")}\`\`\``
+            })
         } catch(e) {
             console.log(e.message)
-            return message.reply(e.toString().replace(/(?:https?:\/\/)?discord(?:app)?\.(?:com\/invite|gg)\/[a-zA-Z0-9]+\/?/, ""), { code: "xl", replyTo: message })
+            return message.reply({ 
+                content: `\`\`\`xl${e.toString().replace(/(?:https?:\/\/)?discord(?:app)?\.(?:com\/invite|gg)\/[a-zA-Z0-9]+\/?/, "")}\`\`\``
+            })
         }
     }
 }
