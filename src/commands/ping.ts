@@ -37,7 +37,7 @@ export default class PingCommand extends Command {
                     })
                 } else {
                     await dmsg.edit({
-                        content: `\`\`\`${dmsg.content.replace(/\`\`\`/g, "")}\n${msg.toString().trim()}\`\`\``
+                        content: `\`\`\`${dmsg.content.replace(/\`\`\`/g, "")}${msg.toString().trim()}\n\`\`\``
                     })
                 }
             });
