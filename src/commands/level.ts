@@ -30,7 +30,7 @@ export default class LevelCommand extends Command {
 
         const embed = new MessageEmbed();
             embed.setAuthor(message.member?.nickname || message.author.username, message.author.displayAvatarURL())
-            embed.setColor(`#${message.guild?.me?.displayHexColor.toString()}`)
+            embed.setColor(`${message.guild?.me?.displayHexColor}` as any)
             embed.setTitle(`${message.author.username}'s Level`)
             embed.setDescription(`**🆙 Level** ${settings.level}
 

@@ -59,7 +59,7 @@ export default class TodoCommand extends Command {
 
         var embed = new MessageEmbed();
             embed.setTitle(`⌛ Creating an Asana task...`)
-            embed.setColor(`#${message.guild?.me?.displayHexColor.toString()}`);
+            embed.setColor(`${message.guild?.me?.displayHexColor}` as any);
 
         let d = await message.channel.send({ embeds: [embed] });
 
@@ -87,7 +87,7 @@ Channel: #${channelName} (${message.channel.id})
                                     embed.setTitle(`✅ All done.`)
                                     embed.setDescription(`You can [view the Asana task here](${url}).`)
                                     embed.setFooter(`Task ID: ${task.gid}`)
-                                    embed.setColor(`#${message.guild?.me?.displayHexColor.toString()}`);
+                                    embed.setColor(`${message.guild?.me?.displayHexColor}` as any);
                         
                     d.edit({ embeds: [embed] });
                 })

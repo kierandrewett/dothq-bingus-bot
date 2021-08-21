@@ -226,6 +226,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.6.2.tgz#331b7b9f8621c638284787c5559423822fdffc50"
   integrity sha512-LSw8TZt12ZudbpHc6EkIyDM3nHVWKYrAvGy6EAJfNfjusbwnThqjqxUKKRwuV3iWYeW/LYMzNgaq3MaLffQ2xA==
 
+"@types/ping@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@types/ping/-/ping-0.2.1.tgz#afa3c04dec6d39815ef8e37c2c2ea4c2b994af07"
+  integrity sha512-f9wEZ6YG5wZJB1Z6qve7nAJ7UPhV7O/Z9ZzqC7mHwOyFx39unMyaexOjEapK9dwNtz5SRv3Eln00QmgK3SQwjQ==
+
 "@types/ws@^7.4.7":
   version "7.4.7"
   resolved "https://registry.yarnpkg.com/@types/ws/-/ws-7.4.7.tgz#f7c390a36f7a0679aa69de2d501319f4f8d9b702"
