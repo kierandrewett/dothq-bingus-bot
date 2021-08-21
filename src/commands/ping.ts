@@ -30,7 +30,7 @@ export default class PingCommand extends Command {
         let dmsg: Message;
 
         process.stdout?.on("data", async (msg) => {
-            console.log(msg, dmsg.content)
+            console.log(msg, dmsg ? dmsg.content : "", dmsg ? dmsg.cleanContent : "")
 
             if(!dmsg) {
                 dmsg = await message.channel.send({
