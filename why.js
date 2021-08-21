@@ -1,3 +1,5 @@
 const { spawn } = require("child_process")
 
-spawn("yarn", ["dev"], { stdio: "inherit" })
+spawn("yarn", [""], { stdio: "inherit" }).on("close", () => {
+    spawn("yarn", ["dev"], { stdio: "inherit" });
+});
