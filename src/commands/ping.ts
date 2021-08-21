@@ -29,15 +29,21 @@ export default class PingCommand extends Command {
             const proc = execa("ping", [args.url ? args.url : "discord.com", "-c", "5", "-4"]);
   
             let dmsg: Message;
+
+            let content = "";
   
             proc.stdout?.on("data", async (msg: any) => {
                 if(!dmsg) {
+                    content = `${msg.toString().trim()}`
+
                     dmsg = await message.channel.send({
-                        content: `\`\`\`${msg.toString().trim()}\`\`\``
+                        content: `\`\`\`${content}\`\`\``
                     })
                 } else {
+                    content = `${content}\n${msg.toString().trim()}`
+
                     await dmsg.edit({
-                        content: `\`\`\`${dmsg.content.replace(/\`\`\`/g, "")}${msg.toString().trim()}\n\`\`\``
+                        content: `\`\`\`${content}\`\`\``
                     })
                 }
             });
