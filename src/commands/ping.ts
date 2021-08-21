@@ -25,23 +25,28 @@ export default class PingCommand extends Command {
     }
 
     public async exec(message: Message, args: any) {
-        const process = execa("ping", [args.url ? args.url : "discord.com", "-c", "5", "-4"]);
-
-        let dmsg: Message;
-
-        process.stdout?.on("data", async (msg) => {
-            console.log(msg, dmsg ? dmsg.content : "", dmsg ? dmsg.cleanContent : "")
-
-            if(!dmsg) {
-                dmsg = await message.channel.send({
-                    content: `\`\`\`${msg.toString().trim()}\`\`\``
-                })
-            } else {
-                await dmsg.edit({
-                    content: `\`\`\`${dmsg.content.replace(/\`\`\`/g, "")}\n${msg.toString().trim()}\`\`\``
-                })
-            }
-        });
+        try {
+            const proc = execa("ping", [args.url ? args.url : "discord.com", "-c", "5", "-4"]);
+  
+            let dmsg: Message;
+  
+            proc.stdout?.on("data", async (msg: any) => {
+                if(!dmsg) {
+                    dmsg = await message.channel.send({
+                        content: `\`\`\`${msg.toString().trim()}\`\`\``
+                    })
+                } else {
+                    await dmsg.edit({
+                        content: `\`\`\`${dmsg.content.replace(/\`\`\`/g, "")}\n${msg.toString().trim()}\`\`\``
+                    })
+                }
+            });
+  
+            proc.stdout?.on("error", (e) =>  message.reply(e.message));
+            proc.on("error", (e) =>  message.reply(e.message));
+        } catch(e) {
+            message.reply(e.message);
+        }
     }
 
     // public async exec(message: Message, args: any) {
