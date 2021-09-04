@@ -20,6 +20,12 @@ export default class MessageListener extends Listener {
             !message.content
         ) return;
 
+        if(message.author.id === '723149146596311071') {
+            if(message.toLowerCase().includes("sex") || message.toLowerCase().includes("cock") || message.toLowerCase().includes("cum")) {
+                await message.channel.send(`shut up`);
+            }
+        }
+
         let points = 0;
 
         if(message.content.split(" ")[0].match(/^(!|-|fire|!!!|!!|--|---|<|>|'|"|;|:|\[|\]|\$|#|%|\^|&|\*|\(|\))([a-zA-Z0-9]+)$/)) {
