@@ -10,8 +10,6 @@ export default class ReadyListener extends Listener {
     }
 
     exec(event: any) {
-        const owners = Array.from(this.client.ownerID);
-
         console.log(`Loaded ${this.client.user?.tag}`);
 
         let activity = "";
@@ -20,16 +18,37 @@ export default class ReadyListener extends Listener {
 
         this.client.guilds.cache.forEach(g => users += g.memberCount);
 
-        setInterval(() => {
-            if(activity !== `-help • ${users} users`) {
-                activity = `-help • ${users} users`;
+        let x = 0;
 
-                this.client.user?.setPresence({ status: 'online', activities: [{
-                    name: activity,
-                    type: "WATCHING"
-                }] });
-            }
-        }, 1000);
+        let messages: any = [
+            () => ({
+                name: `-help • ${users} users`,
+                type: "WATCHING"
+            }),
+            () => {
+                if(client.player.queues && client.player.queues.first()) {
+                    const queue: any = client.player.queues.first();
+
+                    return {
+                        name: `${queue.current.title} - ${queue.current.author}`,
+                        type: "LISTENING"
+                    }
+                } else {
+                    return {
+                        name: `Nothing playing`,
+                        type: "LISTENING"
+                    }
+                }
+            },
+        ]
+
+        setInterval(() => {
+            if(x >= messages.length) x = 0;
+
+            this.client.user?.setPresence({ status: 'online', activities: [messages[x]()] });
+
+            x++;
+        }, 10000);
 
         (this.client as any).settings = client.settings;
     }
