@@ -1,0 +1,30 @@
+--- ./node_modules/discord-player/dist/Structures/Queue.js	2021-11-23 21:53:18.977093884 +0000
++++ ./patches/Queue.js	2021-11-23 21:51:46.475874802 +0000
+@@ -34,6 +34,7 @@
+ const youtube_sr_1 = __importDefault(require("youtube-sr"));
+ const AudioFilters_1 = __importDefault(require("../utils/AudioFilters"));
+ const PlayerError_1 = require("./PlayerError");
++const ytdl = require("ytdl-core");
+ class Queue {
+     /**
+      * Queue constructor
+@@ -636,7 +637,9 @@
+             }
+             // TODO: remove discord-ytdl-core
+             let stream;
+-            if (["youtube", "spotify"].includes(track.raw.source)) {
++            if (["youtube"].includes(track.raw.source)) {
++                stream = ytdl(track.url, { filter: 'audioonly' }, { passes: 3 })
++            } else if (["spotify"].includes(track.raw.source)) {
+                 if (track.raw.source === "spotify" && !track.raw.engine) {
+                     track.raw.engine = yield youtube_sr_1.default.search(`${track.author} ${track.title}`, { type: "video" })
+                         .then((x) => x[0].url)
+@@ -664,7 +667,7 @@
+                 });
+             }
+             const resource = this.connection.createStream(stream, {
+-                type: voice_1.StreamType.Raw,
++                type: (track.raw.source === "youtube") ? voice_1.StreamType.WebmOpus : voice_1.StreamType.Raw,
+                 data: track
+             });
+             if (options.seek)

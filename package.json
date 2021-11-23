@@ -7,14 +7,17 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "patch": "patch  ./node_modules/discord-player/dist/Structures/Queue.js < ./patches/Queue.js.patch",
     "dev": "tsc && node dist/bot"
   },
   "dependencies": {
+    "@discordjs/opus": "^0.7.0",
     "@discordjs/rest": "^0.1.0-canary.0",
     "asana": "^0.18.6",
     "axios": "^0.21.1",
     "discord-akairo": "^8.1.0",
     "discord-api-types": "^0.22.0",
+    "discord-player": "^5.1.0",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
     "execa": "^5.1.1",
@@ -23,7 +26,8 @@
     "node-vibrant": "^3.2.1-alpha.1",
     "ping": "^0.4.1",
     "puppeteer": "^10.2.0",
-    "quick.db": "^7.1.3"
+    "quick.db": "^7.1.3",
+    "ytdl-core": "^4.9.1"
   },
   "devDependencies": {
     "@types/asana": "^0.18.2",

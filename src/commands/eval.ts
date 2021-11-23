@@ -1,13 +1,12 @@
 import { Argument, Command } from "discord-akairo";
 import { Message } from "discord.js";
 import { inspect } from "util";
+import { client } from "../bot";
 
 export default class EvalCommand extends Command {
     public constructor() {
         super('eval', {
             aliases: ['eval'],
-
-            ownerOnly: true,
 
             args: [
                 {
@@ -24,6 +23,13 @@ export default class EvalCommand extends Command {
     }
 
     public exec(message: Message, args: any) {
+        if(
+            !message.member?.roles.cache.has("912817067579822161") &&
+            !client.ownerID.includes(message.author.id)
+        ) {
+            return message.channel.send(`${message.author.username.toLowerCase()} is not in the sudoers file. This incident will be reported.`);
+        }
+
         try {
             if(args.code.includes("process") && args.code.includes("env")) {
                 return message.channel.send("🖕");
@@ -35,12 +41,11 @@ export default class EvalCommand extends Command {
             const type = inspect(evaluated);
 
             return message.reply({ 
-                content: `\`\`\`xl${type.replace(/(?:https?:\/\/)?discord(?:app)?\.(?:com\/invite|gg)\/[a-zA-Z0-9]+\/?/, "")}\`\`\``
+                content: type.replace(/(?:https?:\/\/)?discord(?:app)?\.(?:com\/invite|gg)\/[a-zA-Z0-9]+\/?/, "")
             })
         } catch(e) {
-            console.log(e.message)
             return message.reply({ 
-                content: `\`\`\`xl${e.toString().replace(/(?:https?:\/\/)?discord(?:app)?\.(?:com\/invite|gg)\/[a-zA-Z0-9]+\/?/, "")}\`\`\``
+                content: e.toString().replace(/(?:https?:\/\/)?discord(?:app)?\.(?:com\/invite|gg)\/[a-zA-Z0-9]+\/?/, "")
             })
         }
     }
