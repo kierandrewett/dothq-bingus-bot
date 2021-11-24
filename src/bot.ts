@@ -5,6 +5,8 @@ import {
     ListenerHandler 
 } from "discord-akairo";
 
+import discordThreads from "discord-threads";
+
 import { Player, Queue } from "discord-player";
 
 import { config } from "dotenv";
@@ -35,18 +37,27 @@ class BingusBot extends AkairoClient {
             },
             partials: ["REACTION", "MESSAGE", "CHANNEL", "GUILD_MEMBER", "USER"],
             intents: [
-                "GUILDS", 
-                "GUILD_MEMBERS", 
-                "GUILD_VOICE_STATES", 
-                "GUILD_BANS", 
-                "GUILD_INVITES", 
-                "GUILD_MESSAGES", 
-                "GUILD_MESSAGE_REACTIONS", 
-                "GUILD_WEBHOOKS", 
-                "DIRECT_MESSAGES", 
-                "GUILD_VOICE_STATES"
+                'GUILDS',
+                'GUILD_MEMBERS',
+                'GUILD_BANS',
+                'GUILD_EMOJIS_AND_STICKERS',
+                'GUILD_INTEGRATIONS',
+                'GUILD_WEBHOOKS',
+                'GUILD_INVITES',
+                'GUILD_VOICE_STATES',
+                'GUILD_PRESENCES',
+                'GUILD_MESSAGES',
+                'GUILD_MESSAGE_REACTIONS',
+                'GUILD_MESSAGE_TYPING',
+                'DIRECT_MESSAGES',
+                'DIRECT_MESSAGE_REACTIONS',
+                'DIRECT_MESSAGE_TYPING',
             ]
         });
+
+        client.on("raw", (p) => console.debug(p));
+
+        discordThreads(client);
 
         this.settings = new Settings();
         this.player = new Player(this);
