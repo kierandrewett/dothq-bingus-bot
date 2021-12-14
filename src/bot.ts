@@ -13,6 +13,7 @@ import { config } from "dotenv";
 import { resolve } from "path";
 
 import { Settings } from "./settings";
+import { exec } from "child_process";
 
 config();
 
@@ -24,9 +25,12 @@ class BingusBot extends AkairoClient {
     public settings: Settings;
     public player: Player;
 
+    public vm: string = "";
+    public restartingVm: boolean = false;
+
     public queues = new Map<any, Queue>();
 
-    constructor() {
+    public constructor() {
         super({
             ownerID: ["217562587938816000"],
             allowedMentions: {
@@ -55,12 +59,10 @@ class BingusBot extends AkairoClient {
             ]
         });
 
-        client.on("raw", (p) => console.debug(p));
-
-        discordThreads(client);
-
         this.settings = new Settings();
         this.player = new Player(this);
+
+        this.initVM();
 
         this.player.on("trackStart", (queue: any, track) => {
             queue.metadata.channel.send(`▶ **Now Playing** ${track.title} by ${track.author}`);
@@ -108,6 +110,19 @@ class BingusBot extends AkairoClient {
 
         process.on("uncaughtException", (e) => {
             console.log(e)
+        })
+    }
+
+    public async initVM() {
+        this.restartingVm = true;
+
+        return new Promise((resolve) => {
+            exec(`docker rm -f bingus-vm`, (error, stdout, stderr) => {
+                exec(`docker run -d --cap-add NET_ADMIN -m 10MB --name bingus-vm python:3-alpine tail -f /dev/null`, (error, stdout, stderr) => {
+                    resolve(true)
+                    this.restartingVm = false;
+                });
+            })
         })
     }
 }
