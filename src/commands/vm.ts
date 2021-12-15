@@ -63,7 +63,7 @@ ${args.data ? args.data.replace(/(ip|hosts\.allow|hosts\.deny|public ip|(\b25[0-
                 })
             });
         } catch(e) {
-            message.channel.send(e.toString());
+            message.channel.send(e as any).toString());
         }
     }
 }

@@ -45,7 +45,7 @@ export default class EvalCommand extends Command {
             })
         } catch(e) {
             return message.reply({ 
-                content: e.toString().replace(/(?:https?:\/\/)?discord(?:app)?\.(?:com\/invite|gg)\/[a-zA-Z0-9]+\/?/, "")
+                content: (e as any).toString().replace(/(?:https?:\/\/)?discord(?:app)?\.(?:com\/invite|gg)\/[a-zA-Z0-9]+\/?/, "")
             })
         }
     }
