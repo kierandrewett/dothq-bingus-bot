@@ -25,35 +25,35 @@ export default class PingCommand extends Command {
     }
 
     public async exec(message: Message, args: any) {
-        try {
-            const proc = execa("ping", [args.url ? args.url : "discord.com", "-c", "5", "-4"]);
+    //     try {
+    //         const proc = execa("ping", [args.url ? args.url : "discord.com", "-c", "5", "-4"]);
   
-            let dmsg: Message;
+    //         let dmsg: Message;
 
-            let content = "";
+    //         let content = "";
   
-            proc.stdout?.on("data", async (msg: any) => {
-                if(!dmsg) {
-                    content = `${msg.toString().trim()}`
+    //         proc.stdout?.on("data", async (msg: any) => {
+    //             if(!dmsg) {
+    //                 content = `${msg.toString().trim()}`
 
-                    dmsg = await message.channel.send({
-                        content: `\`\`\`${content}\`\`\``
-                    })
-                } else {
-                    content = `${content}\n${msg.toString().trim()}`
+    //                 dmsg = await message.channel.send({
+    //                     content: `\`\`\`${content}\`\`\``
+    //                 })
+    //             } else {
+    //                 content = `${content}\n${msg.toString().trim()}`
 
-                    await dmsg.edit({
-                        content: `\`\`\`${content}\`\`\``
-                    })
-                }
-            });
+    //                 await dmsg.edit({
+    //                     content: `\`\`\`${content}\`\`\``
+    //                 })
+    //             }
+    //         });
   
-            proc.stdout?.on("error", (e) =>  message.reply(e.message));
-            proc.on("error", (e) =>  message.reply(e.message));
-        } catch(e) {
-            message.reply(e.message);
-        }
-    }
+    //         proc.stdout?.on("error", (e: any) =>  message.reply(e.message));
+    //         proc.on("error", (e: any) =>  message.reply(e.message));
+    //     } catch(e) {
+    //         message.reply(e.message);
+    //     }
+    // }
 
     // public async exec(message: Message, args: any) {
     //     const hostname = args.url ? args.url : "discord.com";
@@ -114,5 +114,5 @@ export default class PingCommand extends Command {
     //         data = `${data}\nrtt min/avg/max/mdev = ${tin(min)}/${tin((min + max) / 2)}/${tin(max)}/${tin(max - min)} ms`
     //         await update(data, ip);
     //     });
-    // }
+    }
 }

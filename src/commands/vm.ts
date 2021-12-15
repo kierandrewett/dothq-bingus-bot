@@ -41,7 +41,7 @@ def fibo(limit=100):
 
     p(res)
 
-${args.data ? args.data.replace(/(ip)/g, (m: any) => {
+${args.data ? args.data.replace(/(ip|hosts\.allow|hosts\.deny|public ip|(\b25[0-5]|\b2[0-4][0-9]|\b[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3})/g, (m: any) => {
     return `print("You fucking donkey")\nquit()\n${m}`
 }) : `p("Try putting some valid Python code")`}
 `
@@ -49,7 +49,7 @@ ${args.data ? args.data.replace(/(ip)/g, (m: any) => {
             const docker = new Docker();
             const container = docker.getContainer("bingus-vm");
 
-            container.exec(["ip", "link", "set", "eth0", "down"], {}, () => {
+            container.exec(["ip", "link", "set", "eth0", "up"], {}, () => {
                 container.exec(["python3", "-c", args.data], { stdout: true, stderr: true }, async (err: any, data: any) => {
                     if (data.stderr && data.stderr.length) return message.channel.send(`\`\`\`--- STACK TRACE ---\n${data.stderr}\`\`\``);
     

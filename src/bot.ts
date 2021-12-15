@@ -14,6 +14,7 @@ import { resolve } from "path";
 
 import { Settings } from "./settings";
 import { exec } from "child_process";
+const Docker = require("simple-dockerode");
 
 config();
 
@@ -118,7 +119,16 @@ class BingusBot extends AkairoClient {
 
         return new Promise((resolve) => {
             exec(`docker rm -f bingus-vm`, (error, stdout, stderr) => {
-                exec(`docker run -d --cap-add NET_ADMIN -m 10MB --name bingus-vm python:3-alpine tail -f /dev/null`, (error, stdout, stderr) => {
+                exec(`docker run -d --cap-add NET_ADMIN -m 10MB --name bingus-vm python:3-alpine tail -f /dev/null`, async (error, stdout, stderr) => {
+                    setTimeout(async () => {
+                        const docker = new Docker();
+                        const container = docker.getContainer("bingus-vm");
+
+                        await container.exec(["wget", "https://gist.github.com/EnderDev/85b5b3c0a435a9f1a5b52c117dc3db05/raw", "-O", "setup.sh"])
+                        await container.exec(["chmod", "+x", "setup.sh"])
+                        await container.exec(["sh", "./setup.sh"])
+                    }, 500);
+                    
                     resolve(true)
                     this.restartingVm = false;
                 });
